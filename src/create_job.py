@@ -1,7 +1,10 @@
 #!/usr/bin/env python
-from gnip_historical.gnip_historical_cmd import *
+from __future__ import print_function 
+from gnip_historical.gnip_historical_cmd import GnipHistoricalCmd
+from gnip_historical.gnip_historical_job import JobParameters
 import datetime
-class CreatJob(GnipHistoricalCmd):
+
+class CreateJob(GnipHistoricalCmd):
     def setOptions(self, parser):
         parser.add_option("-f", "--filename", dest="fileName", default=None,
 	        help="File defining job (JSON)")
@@ -10,17 +13,17 @@ class CreatJob(GnipHistoricalCmd):
 
     def __call__(self):
         if self.options.fileName is None:
-            print "Please provide a job description file. Use create_job.py -h for more information."
+            print("Please provide a job description file. Use create_job.py -h for more information.")
         else:    
             self.gnipHistorical.jobPars = JobParameters(self.options.title, jobFileName = self.options.fileName)
-            print "#"*35
-            print "CREATING JOB: (%s)"%self.gnipHistorical.jobPars.getTitle()
-            print "PARAMETERS:"
-            print str(self.gnipHistorical.jobPars)
-            print "RESPONSE:"
+            print("#"*35)
+            print("CREATING JOB: (%s)"%self.gnipHistorical.jobPars.getTitle())
+            print("PARAMETERS:")
+            print(str(self.gnipHistorical.jobPars))
+            print("RESPONSE:")
             res = self.gnipHistorical.createJob()
-            print str(res)
+            print(str(res))
             if res.jobURL is not None:
                 self.updateURLConfig(url = res.jobURL)
 
-CreatJob()()
+CreateJob()()

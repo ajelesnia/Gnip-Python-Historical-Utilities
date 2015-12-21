@@ -27,10 +27,6 @@ file named ".gnip".
     Password again: 
     Endpoint URL. Enter your Account Name (eg https://historical.gnip.com:443/accounts/<account name>/): shendrickson
     Done creating file ./.gnip
-    Be sure to run:
-    chmod og-w .gnip
-        
-    $ chmod og-w .gnip
 
 You may wish to run these utilities from other directory locations. If so, be sure the export an
 updated ``PYTHONPATH``,

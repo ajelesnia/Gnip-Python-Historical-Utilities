@@ -40,12 +40,12 @@ class JobParameters(object):
                             if test_key not in tmpJob:
                                 raise ValueError("Required fields missing ({})".format(test_key))
                         self.job = tmpJob
-                    except ValueError, e:
+                    except ValueError as e:
                         sys.stderr.write("Failed to parse input JSON. (%s). Exiting.\n"%e)
                         sys.exit()
                 self.setToDate(tmpJob["toDate"])
                 self.setFromDate(tmpJob["fromDate"])
-            except IOError,e:
+            except IOError as e:
                 sys.stderr.write("Failed to open rules file. (%s)\n"%e)
         # Given title supercedes file title, otherwise, use give title
         if title is not None:
@@ -87,17 +87,11 @@ class JobParameters(object):
         self.fromDateObj = self.parseDate(dateObj)
         self.job["fromDate"] = self.fmtDate(self.fromDateObj)
 
-    #def getFromDate(self):
-    #    """Get the from date object"""
-    #    return self.fromDateObj
-
     def setToDate(self, dateObj):
         """Set job ending date from date object or string"""
         self.toDateObj = self.parseDate(dateObj)
         self.job["toDate"] = self.fmtDate(self.toDateObj)
 
-    #def getToDate(self):
-    #    return self.toDateObj
 
     def duration(self):
         """Return the job duration as a delta_date object."""
@@ -109,29 +103,7 @@ class JobParameters(object):
     def setActivityDataFormat(self):
         self.job["dataFormat"] = "activity-streams"
 
-    def setRules(self, ruleList):
-        """Set rules from list of dictionaries or a JSON string representation of a list of rules.
-        Dictionaries must contain "values" and may contain "tags" keys."""
-        if type(ruleList) == type([]):
-            self.job["rules"] = ruleList
-        elif type(ruleList) == type("string"):
-            try:
-                self.job["rules"] = json.loads(ruleList)
-            except ValueError, e:
-                sys.stderr.write("Failed to set rules by parsing JSON string. (%s)\n"%e)
-        else:
-            sys.stderr.write("Failed to set rules. Check argument type is list of valid rules or string with valid JSON.\n")
 
-    def addRule(self, rule, tag=None):
-        """Add a rule to existing rules list."""
-        if tag is not None:
-            self.job["rules"].append({"value": rule, "tag": tag})
-        else:
-            self.job["rules"].append({"value": rule})
-
-    #def addRuleList(self, ruleList):
-    #    # ruleList is a list of dicts, over writes existing list
-    #    self.job["rules"] = ruleList
 
     def __str__(self):
         if self.toDateObj > self.fromDateObj and self.job["rules"] != []:
