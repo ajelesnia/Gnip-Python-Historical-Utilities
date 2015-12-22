@@ -1,5 +1,5 @@
 #!/usr/bin/env pythonf
-rom __future__ import print_function 
+from __future__ import print_function 
 from gnip_historical.gnip_historical_cmd import GnipHistoricalCmd
 
 class AcceptJob(GnipHistoricalCmd):
