@@ -34,7 +34,7 @@ def run_setup():
 			config.add_section('creds')
 
 	# Asking for username and password for Gnip
-	un = raw_input("Username: ")
+	un = input("Username: ")
 	config.set('creds', 'un', un)
 	password = ""
 	password1 = "not set"
