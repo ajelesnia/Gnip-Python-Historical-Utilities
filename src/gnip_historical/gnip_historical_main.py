@@ -38,13 +38,15 @@ class DataSetResults(object):
         '''Write Data Urls to file '''
         with open(file_name, "wb") as f:
             for i in self.dataURLs:
-                f.write("%s\n"%i)
+                f.write(bytes(i, 'UTF-8') + b'\n')
+                #f.write("%s\n"%i)
 
         if self.suspectMinuteURLs != []:
             print("Writing suspect Minute URLs in ./suspect_files.txt")
             with open("./suspect_files.txt", "wb") as f:
                 for i in self.suspectMinuteURLs:
-                    f.write("%s\n"%i)
+                    f.write(bytes(i, 'UTF-8') + b'\n')
+                    #f.write("%s\n"%i)
     
     def __repr__(self):
         res = 'DATA SET:\n'
